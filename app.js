@@ -279,6 +279,29 @@ function initRepoSearch() {
 /* 7. Contact Form Redirect to WhatsApp or Email */
 function initContactForm() {
     const form = document.getElementById("projectContactForm");
+    const emailForm = document.getElementById("emailContactForm");
+    const tabWA = document.getElementById("tabWA");
+    const tabEmail = document.getElementById("tabEmail");
+
+    // Tab switching
+    if (tabWA && tabEmail) {
+        tabWA.addEventListener("click", () => {
+            form.style.display = "block";
+            emailForm.style.display = "none";
+            tabWA.classList.add("active");
+            tabEmail.classList.remove("active");
+            lucide.createIcons();
+        });
+
+        tabEmail.addEventListener("click", () => {
+            form.style.display = "none";
+            emailForm.style.display = "block";
+            tabEmail.classList.add("active");
+            tabWA.classList.remove("active");
+            lucide.createIcons();
+        });
+    }
+
     if (!form) return;
     
     // Handler untuk WhatsApp
@@ -306,29 +329,7 @@ function initContactForm() {
     });
 }
 
-/* 8. Form Tab Switcher (WA / Email) */
-function switchFormTab(tab) {
-    const waForm = document.getElementById("projectContactForm");
-    const emailForm = document.getElementById("emailContactForm");
-    const tabWA = document.getElementById("tabWA");
-    const tabEmail = document.getElementById("tabEmail");
-
-    if (tab === 'wa') {
-        waForm.style.display = "block";
-        emailForm.style.display = "none";
-        tabWA.classList.add("active");
-        tabEmail.classList.remove("active");
-    } else {
-        waForm.style.display = "none";
-        emailForm.style.display = "block";
-        tabWA.classList.remove("active");
-        tabEmail.classList.add("active");
-    }
-
-    lucide.createIcons();
-}
-
-/* 9. Show success message if redirected back from Formsubmit */
+/* 8. Show success message if redirected back from Formsubmit */
 function initSuccessMessage() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('pesan') === 'terkirim') {
