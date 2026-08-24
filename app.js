@@ -1,5 +1,5 @@
 // Configuration
-const WHATSAPP_NUMBER = "6282194689240"; // Nomor WhatsApp Ashabul (Bisa disesuaikan langsung)
+const WHATSAPP_NUMBER = "6287777347983"; // Nomor WhatsApp Ashabul (Bisa disesuaikan langsung)
 const GITHUB_USERNAME = "tehkotak88";
 
 // Initialize Lucide Icons
@@ -275,11 +275,12 @@ function initRepoSearch() {
     });
 }
 
-/* 7. Contact Form Redirect to WhatsApp */
+/* 7. Contact Form Redirect to WhatsApp or Email */
 function initContactForm() {
     const form = document.getElementById("projectContactForm");
     if (!form) return;
     
+    // Handler untuk WhatsApp
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         
@@ -302,4 +303,27 @@ function initContactForm() {
         // Reset form inputs after submitting
         form.reset();
     });
+
+    // Handler untuk Email
+    const btnEmail = document.getElementById("btnSubmitEmail");
+    if (btnEmail) {
+        btnEmail.addEventListener("click", () => {
+            const name = document.getElementById("clientName").value.trim();
+            const type = document.getElementById("projectType").value;
+            const desc = document.getElementById("projectDesc").value.trim();
+            
+            if (!name || !desc) {
+                alert("Mohon isi Nama dan Deskripsi Proyek sebelum menekan tombol Kirim via Gmail.");
+                return;
+            }
+            
+            const subject = encodeURIComponent(`Permintaan Proyek Baru: ${type} dari ${name}`);
+            const body = encodeURIComponent(`Halo Ashabul,\n\nSaya ${name}.\n\nSaya tertarik untuk berkolaborasi dalam pembuatan proyek ${type} dengan rencana kebutuhan sebagai berikut:\n\n"${desc}"\n\nMohon hubungi saya kembali untuk mendiskusikan rencana kerja dan penawaran harganya. Terima kasih!`);
+            const mailtoLink = `mailto:ashabulkhafianwarkingofgame@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Open user's default email client
+            window.open(mailtoLink, "_self");
+            form.reset();
+        });
+    }
 }
