@@ -450,12 +450,23 @@ developer.buildTrust();</code></pre>
 
                 <div class="contact-form-block glass-card">
                     <h3 class="form-title">Kirim Pesan Rencana Proyek</h3>
+
+                    <!-- Tab Switch -->
+                    <div class="form-tabs" style="display:flex; gap:0.5rem; margin-bottom:1.5rem;">
+                        <button type="button" class="form-tab-btn active" id="tabWA" onclick="switchFormTab('wa')">
+                            <i data-lucide="message-square" style="width:15px;height:15px;"></i> WhatsApp
+                        </button>
+                        <button type="button" class="form-tab-btn" id="tabEmail" onclick="switchFormTab('email')">
+                            <i data-lucide="mail" style="width:15px;height:15px;"></i> Email
+                        </button>
+                    </div>
+
+                    <!-- WhatsApp Form -->
                     <form id="projectContactForm" class="contact-form">
                         <div class="form-group">
                             <label for="clientName">Nama Lengkap / Nama Bisnis</label>
                             <input type="text" id="clientName" required placeholder="Contoh: Budi - Owner Kopi Jaya">
                         </div>
-
                         <div class="form-group">
                             <label for="projectType">Jenis Proyek</label>
                             <select id="projectType">
@@ -465,22 +476,51 @@ developer.buildTrust();</code></pre>
                                 <option value="Konsultasi IT">Konsultasi IT / Lainnya</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="projectDesc">Deskripsi Singkat Kebutuhan Anda</label>
                             <textarea id="projectDesc" rows="4" required placeholder="Jelaskan fitur apa saja yang Anda inginkan pada website/aplikasi Anda..."></textarea>
                         </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="btnSubmitWA">
+                            <span>Kirim Rencana ke WhatsApp</span>
+                            <i data-lucide="send"></i>
+                        </button>
+                    </form>
 
-                        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-direction: column;">
-                            <button type="submit" class="btn btn-primary btn-full" id="btnSubmitWA">
-                                <span>Kirim Rencana ke WhatsApp</span>
-                                <i data-lucide="send"></i>
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-full" id="btnSubmitEmail">
-                                <span>Kirim Rencana via Gmail</span>
-                                <i data-lucide="mail"></i>
-                            </button>
+                    <!-- Email Form (Formsubmit.co) -->
+                    <form id="emailContactForm" class="contact-form" style="display:none;"
+                          action="https://formsubmit.co/ashabulkhafianwarkingofgame@gmail.com"
+                          method="POST">
+                        <!-- Formsubmit hidden configs -->
+                        <input type="hidden" name="_subject" value="Permintaan Proyek Baru dari Portofolio Ashabul">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://portofolio-ashabul.vercel.app/?pesan=terkirim">
+
+                        <div class="form-group">
+                            <label for="emailName">Nama Lengkap / Nama Bisnis</label>
+                            <input type="text" id="emailName" name="nama" required placeholder="Contoh: Budi - Owner Kopi Jaya">
                         </div>
+                        <div class="form-group">
+                            <label for="emailSender">Email Anda (untuk balasan)</label>
+                            <input type="email" id="emailSender" name="email_pengirim" required placeholder="email@anda.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailProjectType">Jenis Proyek</label>
+                            <select id="emailProjectType" name="jenis_proyek">
+                                <option value="Website UMKM / Profil Bisnis">Website Profil Bisnis / UMKM</option>
+                                <option value="Katalog Menu Digital">Katalog Menu Digital (Kafe/Resto)</option>
+                                <option value="Sistem Informasi Keuangan / Kustom">Sistem Informasi Keuangan / Aplikasi Kustom</option>
+                                <option value="Konsultasi IT">Konsultasi IT / Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailDesc">Deskripsi Singkat Kebutuhan Anda</label>
+                            <textarea id="emailDesc" name="deskripsi" rows="4" required placeholder="Jelaskan fitur apa saja yang Anda inginkan pada website/aplikasi Anda..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Kirim Email Sekarang</span>
+                            <i data-lucide="send"></i>
+                        </button>
                     </form>
                 </div>
             </div>

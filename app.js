@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initProjectFilter();
     fetchGitHubRepos();
     initContactForm();
+    initSuccessMessage();
 });
 
 /* 1. Custom Cursor Glow Effect */
@@ -303,27 +304,50 @@ function initContactForm() {
         // Reset form inputs after submitting
         form.reset();
     });
+}
 
-    // Handler untuk Email
-    const btnEmail = document.getElementById("btnSubmitEmail");
-    if (btnEmail) {
-        btnEmail.addEventListener("click", () => {
-            const name = document.getElementById("clientName").value.trim();
-            const type = document.getElementById("projectType").value;
-            const desc = document.getElementById("projectDesc").value.trim();
-            
-            if (!name || !desc) {
-                alert("Mohon isi Nama dan Deskripsi Proyek sebelum menekan tombol Kirim via Gmail.");
-                return;
-            }
-            
-            const subject = encodeURIComponent(`Permintaan Proyek Baru: ${type} dari ${name}`);
-            const body = encodeURIComponent(`Halo Ashabul,\n\nSaya ${name}.\n\nSaya tertarik untuk berkolaborasi dalam pembuatan proyek ${type} dengan rencana kebutuhan sebagai berikut:\n\n"${desc}"\n\nMohon hubungi saya kembali untuk mendiskusikan rencana kerja dan penawaran harganya. Terima kasih!`);
-            const mailtoLink = `mailto:ashabulkhafianwarkingofgame@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Open user's default email client
-            window.open(mailtoLink, "_self");
-            form.reset();
-        });
+/* 8. Form Tab Switcher (WA / Email) */
+function switchFormTab(tab) {
+    const waForm = document.getElementById("projectContactForm");
+    const emailForm = document.getElementById("emailContactForm");
+    const tabWA = document.getElementById("tabWA");
+    const tabEmail = document.getElementById("tabEmail");
+
+    if (tab === 'wa') {
+        waForm.style.display = "block";
+        emailForm.style.display = "none";
+        tabWA.classList.add("active");
+        tabEmail.classList.remove("active");
+    } else {
+        waForm.style.display = "none";
+        emailForm.style.display = "block";
+        tabWA.classList.remove("active");
+        tabEmail.classList.add("active");
+    }
+
+    lucide.createIcons();
+}
+
+/* 9. Show success message if redirected back from Formsubmit */
+function initSuccessMessage() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('pesan') === 'terkirim') {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            const banner = document.createElement('div');
+            banner.style.cssText = `
+                background: linear-gradient(135deg, #10b981, #06b6d4);
+                color: #fff;
+                text-align: center;
+                padding: 1rem 2rem;
+                border-radius: 12px;
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+            `;
+            banner.textContent = '✅ Email Anda berhasil terkirim! Kami akan membalas segera.';
+            contactSection.querySelector('.contact-container').prepend(banner);
+            setTimeout(() => banner.remove(), 8000);
+        }
     }
 }

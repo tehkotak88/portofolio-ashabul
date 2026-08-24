@@ -1200,3 +1200,28 @@ section {
         gap: 3rem;
     }
 }
+
+/* Form Tab Buttons (WA vs Email) */
+.form-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.form-tab-btn.active,
+.form-tab-btn:hover {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
